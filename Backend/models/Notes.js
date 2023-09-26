@@ -23,4 +23,4 @@ default: Date.now,
 }
 }
 );
-module.exports= mongoose.model('user', NotesSchema);
+module.exports= mongoose.model('notes', NotesSchema);

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose= require ('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -13,7 +13,7 @@ Email: {
     unique: true
 
 },
-Passwor:{
+Password:{
     type: String,
     required : true
 },
