@@ -4,6 +4,8 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const user = require('../models/User.js');
+const fetchuser = require('../middleware/fetchuser.js');
 
 
 const JWT_SECRET = "harry is good"
@@ -79,6 +81,20 @@ router.post('/login', [
     const authatoken = jwt.sign(data, JWT_SECRET)
     res.json({ authatoken })
 
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error")
+  }
+})
+// Route3 : get logedin user details using: POST request "/api/auth/getuser", Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+
+
+
+  try {
+    userid = req.user.id;
+  const user= await User.findById(userid).select("-Password")
+  res.send(user);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal server error")
