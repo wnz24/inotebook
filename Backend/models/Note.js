@@ -1,7 +1,12 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose') ;
 const { Schema } = mongoose;
 
 const NotesSchema = new Schema({
+    User:{
+     type: mongoose.Schema.Types.ObjectId,
+     ref:'user'
+    
+    },
     Title: {
         type: String,
         required: true,
@@ -18,7 +23,7 @@ const NotesSchema = new Schema({
     },
     Date: {
         type: String,
-        default: Date.now,
+        default: Date.now(),
 
     }
 }

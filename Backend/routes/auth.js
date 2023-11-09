@@ -9,7 +9,7 @@ const fetchuser = require('../middleware/fetchuser.js');
 
 
 const JWT_SECRET = "harry is good"
-// Route2 : create a user using: POST request "/api/auth/createuser", no login required
+// Route1 : create a user using: POST request "/api/auth/createuser", no login required
 router.post('/createuser', [
   body("name", "Enter a valid name").isLength({ min: 3 }),
   body("Email", "Enter a valid Email").isEmail(),
@@ -43,16 +43,12 @@ router.post('/createuser', [
     const authatoken = jwt.sign(data, JWT_SECRET)
     res.json({ authatoken })
     //  res.json(user);
-
-
-
   } catch (error) {
     console.error(error.message);
     res.status(500).send("some error occurred")
   }
 })
-
-// Route1 : Authenticate a user using: POST request "/api/auth/login", no login required
+// Route2 : Authenticate a user using: POST request "/api/auth/login", no login required
 router.post('/login', [
   body("Email", "Enter a valid Email").isEmail(),
   body("Password", "Password cannot be blank").exists(),
