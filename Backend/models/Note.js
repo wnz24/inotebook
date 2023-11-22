@@ -1,9 +1,9 @@
 const mongoose = require('mongoose') ;
 const { Schema } = mongoose;
 
-const NotesSchema = new Schema({
+const NoteSchema = new Schema({
     User:{
-     type: mongoose.Schema.Types.ObjectId,
+     type:mongoose.Schema.Types.ObjectId,
      ref:'user'
     
     },
@@ -22,10 +22,10 @@ const NotesSchema = new Schema({
         default: "general"
     },
     Date: {
-        type: String,
-        default: Date.now(),
+        type: Date,
+        default: Date.now
 
     }
 }
 );
-module.exports = mongoose.model('notes', NotesSchema);
+module.exports = mongoose.model('notes', NoteSchema);
