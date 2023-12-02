@@ -11,20 +11,12 @@ const { body, validationResult } = require("express-validator");
 router.get("/fetchallnotes", fetchuser, async (req, res) => {
     try {
         const notes = await Note.find({ user: req.user.id });
-<<<<<<< HEAD
-        console.log(notes)
-        if (!notes || notes.length === 0) {
-            return res.status(404).json({ msg: "No notes found for this user." });
-        }
-        else {
-            res.json(notes)
-        }
-=======
+
         if (!notes || notes.length === 0) {
             return res.status(404).json({ msg: "No notes found for this user." });
         }
         res.json(notes)
->>>>>>> 4aa93ab5a52e81604da3e587b6991c5f102fba4f
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal server error");
@@ -48,7 +40,6 @@ router.post(
                 return res.status(400).json({ errors: errors.array() });
             }
             const note = new Note({
-<<<<<<< HEAD
                 user: req.user.id,
                 Title,
                 Description,
@@ -57,16 +48,6 @@ router.post(
             });
             const savedNote = await note.save();
 
-=======
-                user:req.user.id,
-                Title,
-                Description,
-                tag,
-                
-            });
-            const savedNote = await note.save();
-            
->>>>>>> 4aa93ab5a52e81604da3e587b6991c5f102fba4f
             res.json(savedNote)
 
         } catch (error) {
@@ -77,7 +58,6 @@ router.post(
 );
 // Route3 : update an exsisting note: PUT request "/api/notes/updatenote",  login required
 router.put(
-<<<<<<< HEAD
     "/updatenote/:id", fetchuser, async (req, res) => {
         const { Title, Description, tag } = req.body;
         // Vreate a newNote object
@@ -118,27 +98,5 @@ router.delete("/deletenote/:id", fetchuser, async (req, res) => {
 
 });
 
-=======
-    "/updatenote/:id",fetchuser,async (req, res) => {
-        const  {Title,Description,tag} = req.body;
-        // Vreate a newNote object
-        const newNote = {};
-        if (Title){newNote.Title = Title}
-        if (Description){newNote.Description = Description}
-        if (tag){newNote.tag = tag}
-        // find the Note to be updated and update it
-        let note = await Note.findById(req.params.id);
-        if(!note){return res.status(404).send("Not Found")};
-
-        if(note.user.tostring() !== req.user.id){
-            return res.status(401).send("not Allowed")
-        }
-
-        note = await Note.findByIdAndUpdate(req.params.id, {$set :newNote },{ new:true})
-         res.json ({note})
-
-                
-            });
->>>>>>> 4aa93ab5a52e81604da3e587b6991c5f102fba4f
 
 module.exports = router;
