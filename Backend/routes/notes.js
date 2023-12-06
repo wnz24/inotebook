@@ -11,8 +11,9 @@ const { body, validationResult } = require("express-validator");
 router.get("/fetchallnotes", fetchuser, async (req, res) => {
     try {
         const notes = await Note.find({ user: req.user.id });
-
+       
         if (!notes || notes.length === 0) {
+            console.log(notes)
             return res.status(404).json({ msg: "No notes found for this user." });
         }
         res.json(notes)
@@ -39,6 +40,7 @@ router.post(
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
+            
             const note = new Note({
                 user: req.user.id,
                 Title,
@@ -46,9 +48,10 @@ router.post(
                 tag,
 
             });
+           
             const savedNote = await note.save();
-
-            res.json(savedNote)
+            
+            res.json(savedNote);
 
         } catch (error) {
             console.error(error.message);
@@ -79,7 +82,7 @@ router.put(
 
 
     });
-// Route4 : Delete an exsisting note: PUT request "/api/notes/updatenote",  login required
+// Route4 : Delete an exsisting note: PUT request "/api/notes/deletenote,login required
 
 router.delete("/deletenote/:id", fetchuser, async (req, res) => {
     const { Title, Description, tag } = req.body;
