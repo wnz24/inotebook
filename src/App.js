@@ -7,6 +7,7 @@ import {
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
+import Sidebar from './components/Sidebar';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
 
       <Router>
         <Navbar />
+        <Sidebar/>
         <div className="container">
           <Routes>
             <Route exact path="/" element={<Home />} />

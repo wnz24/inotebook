@@ -2,7 +2,7 @@ import { useState, React } from "react";
 import { Notecontext } from "./notecontext";
 
 const Notestate = (props) => {
-    
+
     return (
         <div>
             <Notecontext.Provider value={{ state, update }}>
