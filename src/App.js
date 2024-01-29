@@ -9,6 +9,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Sidebar from './components/Sidebar';
 import Notestate from './components/Context/notes/Notestate';
+import Alert from './components/Alert';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Notestate>
       <Router>
         <Navbar />
+        <Alert message= "This is an Alert" />
         <Sidebar/>
         <div className="container">
           <Routes>
