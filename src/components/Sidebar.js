@@ -9,7 +9,7 @@ const Sidebar = () => {
     return (
         <div>
 
-            <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <FontAwesomeIcon icon={faBars} />
             </button>
             
