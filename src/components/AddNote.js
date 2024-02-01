@@ -9,9 +9,9 @@ const AddNote = () => {
 
     const handleaddNote = (e) => {
         e.preventDefault();
-        addNote(note)
+        addNote(note.Title, note.Description, note.tag);
     }
-     const onChange = (e) => {
+    const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
@@ -31,9 +31,9 @@ const AddNote = () => {
                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                         <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={handleaddNote}>Submit</button>
+                    <button type="submit" className="btn btn-primary" onClick={handleaddNote}>Add Note</button>
                 </form>
-             </div>
+            </div>
         </div>
     )
 }
