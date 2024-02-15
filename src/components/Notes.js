@@ -29,10 +29,10 @@ const Notes = () => {
 
 
   const handleClick = (e) => {
-  editNote(note.id, note.eTitle, note.eDescription, note.etag)
+     editNote(note.id , note.eTitle, note.eDescription, note.etag)
     refclose.current.click();
     e.preventDefault();
-    setNote()
+    
 
   }
   const onChange = (e) => {

@@ -58,7 +58,7 @@ const Notestate = (props) => {
     };
 
     // Edit a note
-    const editNote = async (Title, Description, tag, id) => {
+    const editNote = async (id, Title, Description, tag) => {
         //API call
         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
             method: "PUT",
@@ -66,7 +66,7 @@ const Notestate = (props) => {
                 "Content-Type": "application/json",
                 "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVjY2NkNzVlNGZlYmZlNDAwMjUwNzk0In0sImlhdCI6MTcwNzkyMDc1N30.lmguP1l_hOMSSZ3DLpk3zssygBgQCGw9EpzkFDB2VbU"
             },
-            body: JSON.stringify({ Title, Description, tag }),
+            body: JSON.stringify({ id, Title, Description, tag }),
         });
         const json = await response.json(); // parses JSON response into native JavaScript objects
     
