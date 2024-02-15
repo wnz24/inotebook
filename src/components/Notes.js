@@ -7,25 +7,33 @@ import { useEffect, useState } from 'react';
 
 
 const Notes = () => {
-  const { notes, getNotes } = useContext(noteContext);
-  const [note, setNote] = useState({ eTitle: "",eDescription: " ", etag: "" })
+  const { notes, getNotes, editNote } = useContext(noteContext);
+ useEffect(() => {
+    getNotes();
+    //es-lint-disable-new-line
+  }, []);
+
+
+  const ref = useRef(null);
+  const refclose = useRef(null);
+  
+   const [note, setNote] = useState({ id:" ", eTitle: " ", eDescription: " ", etag: "" })
+
+
+  const updateNote = (currentNote) => {
+    ref.current.click();
+    setNote({ id: currentNote._id ,eTitle: currentNote.Title, eDescription: currentNote.Description, etag: currentNote.tag });
+  }
  
 
-  useEffect(() => {
-    getNotes();
-  }, []);
-    const ref = useRef(null);
 
-  const updatenote = (currentnote) => {
-    ref.current.click();
-    setNote({eTitle: currentnote.Title, eDescription: currentnote.Description, etag: currentnote.tag});
-  }
 
-  
-
-  const handleaddNote = (e) => {
+  const handleClick = (e) => {
+  editNote(note.id, note.eTitle, note.eDescription, note.etag)
+    refclose.current.click();
     e.preventDefault();
-    
+    setNote()
+
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
@@ -45,24 +53,23 @@ const Notes = () => {
             </div>
             <div className="modal-body">
               <form>
-                <h2 className='my-4'>Add a new Note</h2>
                 <div className="mb-3 my-5">
                   <label htmlFor="eTitle" className="form-label">Title</label>
-                  <input type="text" className="form-control" id="eTitle" name="eTitle" value = {note.Title} aria-describedby="emailHelp" onChange={onChange} />
+                  <input type="text" className="form-control" id="eTitle" name='eTitle' value={note.eTitle} aria-describedby="emailHelp" onChange={onChange} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="eDescription" className="form-label" >Description</label>
-                  <input type="text" className="form-control" id="eDescription"  value = {note.Description}  name="Description" onChange={onChange} />
+                  <input type="text" className="form-control" id="eDescription" value={note.eDescription} name="eDescription" onChange={onChange} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="etag" className="form-label" >Tag</label>
-                  <input type="text" className="form-control" id="eTag"  value = {note.tag}  name="etag" onChange={onChange} />
+                  <label htmlFor="eTag" className="form-label" >Tag</label>
+                  <input type="text" className="form-control" id="eTag" value={note.etag} name="etag" onChange={onChange} />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" onClick={handleaddNote} className="btn btn-primary">Update Note</button>
+              <button  ref={refclose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" onClick={handleClick} className="btn btn-primary">Update Note</button>
             </div>
           </div>
         </div>
@@ -70,7 +77,7 @@ const Notes = () => {
       <div className="row my-3">
         <h2>Your Notes</h2>
         {notes.map((note) => {
-          return <Noteitem key={note._id} updatenote={updatenote} note={note} />
+          return <Noteitem key={note._id} updateNote={updateNote} note={note} />
         }
         )}
       </div>

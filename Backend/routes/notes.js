@@ -11,7 +11,7 @@ const { body, validationResult } = require("express-validator");
 router.get("/fetchallnotes", fetchuser, async (req, res) => {
     try {
         const notes = await Note.find({ user: req.user.id });
-       
+
         if (!notes || notes.length === 0) {
             console.log(notes)
             return res.status(404).json({ msg: "No notes found for this user." });
@@ -40,7 +40,7 @@ router.post(
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            
+
             const note = new Note({
                 user: req.user.id,
                 Title,
@@ -48,9 +48,9 @@ router.post(
                 tag,
 
             });
-           
+
             const savedNote = await note.save();
-            
+
             res.json(savedNote);
 
         } catch (error) {
@@ -72,7 +72,7 @@ router.put(
         let note = await Note.findById(req.params.id);
         if (!note) { return res.status(404).send("Not Found") };
 
-        if (note.user? note.user.tostring() !== req.user.id:'') {
+        if (!note.user || note.user.toString() !== req.user.id) {
             return res.status(401).send("not Allowed")
         }
 
@@ -89,9 +89,9 @@ router.delete("/deletenote/:id", fetchuser, async (req, res) => {
     // find the Note to be Deleted and delete it
     let note = await Note.findById(req.params.id);
     if (!note) { return res.status(404).send("Not Found") };
-      
+
     if (note.user && note.user.toString() !== req.user.id) {
-       
+
         return res.status(401).send("not Allowed")
     }
 

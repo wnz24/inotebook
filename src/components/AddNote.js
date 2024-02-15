@@ -10,6 +10,7 @@ const AddNote = () => {
     const handleaddNote = (e) => {
         e.preventDefault();
         addNote(note.Title, note.Description, note.tag);
+        setNote({ Title: "", Description: " ", tag: "" })
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -21,15 +22,15 @@ const AddNote = () => {
                     <h2 className='my-4'>Add a new Note</h2>
                     <div className="mb-3 my-5">
                         <label htmlFor="Title" className="form-label">Title</label>
-                        <input type="text" className="form-control" id="Title" name="Title" aria-describedby="emailHelp" onChange={onChange} />
+                        <input type="text" className="form-control" value={note.Title} id="Title" name="Title" aria-describedby="emailHelp" onChange={onChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="Description" className="form-label" >Description</label>
-                        <input type="text" className="form-control" id="Description" name="Description" onChange={onChange} />
+                        <input type="text" className="form-control"value={note.Description}  id="Description" name="Description" onChange={onChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="tag" className="form-label" >Tag</label>
-                        <input type="text" className="form-control" id="tag" name="tag" onChange={onChange} />
+                        <input type="text" className="form-control"value={note.tag}  id="tag" name="tag" onChange={onChange} />
                     </div>
                    
                     <button type="submit" className="btn btn-primary" onClick={handleaddNote}>Add Note</button>
